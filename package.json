@@ -1,0 +1,13 @@
+{
+  "name": "whereis",
+  "version": "2",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^2.5.1"
+  }
+}
