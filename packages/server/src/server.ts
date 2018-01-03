@@ -58,6 +58,7 @@ router.get("/location", async (ctx) => {
     const { latitude, longitude } = ctx.request.query;
     const response = await fetch(GEOCODE_API_URL({latitude, longitude}))
     const data = await response.json();
+    console.log(data)
     ctx.body = { location: data.results[5].formatted_address }
 });
 
@@ -65,6 +66,7 @@ router.get("/timezone", async (ctx) => {
     const { latitude, longitude } = ctx.request.query;
     const response = await fetch(TIMEZONE_API_URL({latitude, longitude}))
     const data = await response.json();
+    console.log(data)
     ctx.body = { timeZoneId: data.timeZoneId }
 });
 
