@@ -34,6 +34,7 @@
     "webpack-dev-server": "^2.9.7"
   },
   "scripts": {
-    "start": "../../node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base ./dist --hot --inline --colors --port 3000 --open"
+    "start": "../../node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base ./dist --hot --inline --colors --port 3000 --open",
+    "build": "webpack"
   }
 }
