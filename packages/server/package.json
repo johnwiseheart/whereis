@@ -19,6 +19,7 @@
   },
   "scripts": {
     "start-dev": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/server.ts",
-    "start": "tsc && node ./dist/server/src/server.js"
+    "start": "tsc && node ./dist/server/src/server.js",
+    "build": "tsc"
   }
 }
