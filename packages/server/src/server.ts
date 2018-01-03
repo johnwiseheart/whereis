@@ -72,6 +72,7 @@ router.get("/weather", async (ctx) => {
     const { latitude, longitude, units } = ctx.request.query;
     const response = await fetch(DARKSKY_API_URL({latitude, longitude}, units))
     const data = await response.json();
+    console.log(data)
     ctx.body = {
         currently: data.currently.temperature,
         daily: data.daily.data.map((day: IDarkSkyDay) => ({
