@@ -18,7 +18,8 @@
     "react-map-gl": "^3.1.5",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "webpack": "^3.10.0"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.4.1",
