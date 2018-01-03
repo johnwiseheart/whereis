@@ -6,10 +6,8 @@ import {
   UnitType
 } from "../../common/types";
 
-export const BACKEND_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://whereis.dynamic.jcaw.me"
-    : "http://127.0.0.1:5000";
+export const BACKEND_URL = "https://whereis.dynamic.jcaw.me";
+// export const BACKEND_URL = "http://127.0.0.1:5000";
 
 export const fetchDevices = () => {
   return fetch(BACKEND_URL + "/devices").then(resp => resp.json());
