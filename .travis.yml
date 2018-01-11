@@ -4,8 +4,6 @@ node_js:
 before_script:
 - chmod +x ./scripts/deploy-to-gh-pages.sh
 script:
-- yarn build-app
-after_success:
 - "./scripts/deploy-to-gh-pages.sh"
 env:
   global:
