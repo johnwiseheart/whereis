@@ -3,24 +3,25 @@ node_js:
 - node
 jobs:
   include:
-    - stage: build
-      env: TYPE="FRONTEND"
-      before_script:
-        - chmod +x ./scripts/deploy-app.sh
-      script:
-        - yarn build-app
-      after_success:
-        - "./scripts/deploy-app.sh"
-    - # stage name not required, will continue to use `test`
-      env: TYPE="BACKEND"
-      before_script:
-        - chmod +x ./scripts/deploy-server.sh
-      script:
-        - yarn build-server
-      after_success:
-        - "./scripts/deploy-server.sh"
-
+  - stage: build
+    env: TYPE="FRONTEND"
+    before_script:
+    - chmod +x ./scripts/deploy-app.sh
+    script:
+    - yarn build-app
+    after_success:
+    - "./scripts/deploy-app.sh"
+  - env: TYPE="BACKEND"
+    before_script:
+    - chmod +x ./scripts/deploy-server.sh
+    script:
+    - yarn build-server
+    after_success:
+    - "./scripts/deploy-server.sh"
 env:
   global:
-    - FRONTEND_URL: whereis.jcaw.me
-    - secure: hO1Z0nbZiObEELZPryMmAB3WTPxXeHDzssVR84eSjfMvZWjLa9F+VpW+UZ93RqjKkNDAXW9S7mjhLpOQuvBLIvvXhwQekGXv+t3dnkOMMj85L36IWbpu37hMCERuDOQ9e/UX6IpKcqBnEcNZRXq1Py7P5ZiasUHmJZcBXAfC4TM9k1MKwbmBTVZdhxD+CMW3oLXunLDHWVhKgP7+592KYaQ7A5P5fbuNfUnX5bwFqIfztY4g4VnKbgftzJZx+ie7M8o9dvh2/wyOuWraRtstxBeWq414rdA4THtFAn7FruCUMioaDbvMbhxlGS5MefmB9xsMtGf9aCQPiLAIc+3NyYzY/AaIvoU4YV8cr7c6I9SKfKGXQZ1B+L0kojjGzrkRXPZH99XDgMyfYmymVcPTSr0wQDzfihdchUpwp8SrjRbp+ovvhnOtff8050bVKCzO790oC1drwdtrmGvxKUBU8OFU32CHAFYbGtvkwY1F73/T2pWZfaImL0NpDp45qMftajEqvms2kl07/kFmCzSTRzUSSeXLgO/sqll5iRJCjNFjg1MLrLufazLD1zgOPW0eEBJV00DXoAo4wmWGRvJTt55WJz5+91z4i+mWzzc1dxk+EFv6wJsJBc12y6Q3nPQ/FxwyWxlDUZKUH8fmXBcZ8ydepjMeft5tHcsmKvwYZ3Y=
+  - FRONTEND_URL: whereis.jcaw.me
+  - secure: hO1Z0nbZiObEELZPryMmAB3WTPxXeHDzssVR84eSjfMvZWjLa9F+VpW+UZ93RqjKkNDAXW9S7mjhLpOQuvBLIvvXhwQekGXv+t3dnkOMMj85L36IWbpu37hMCERuDOQ9e/UX6IpKcqBnEcNZRXq1Py7P5ZiasUHmJZcBXAfC4TM9k1MKwbmBTVZdhxD+CMW3oLXunLDHWVhKgP7+592KYaQ7A5P5fbuNfUnX5bwFqIfztY4g4VnKbgftzJZx+ie7M8o9dvh2/wyOuWraRtstxBeWq414rdA4THtFAn7FruCUMioaDbvMbhxlGS5MefmB9xsMtGf9aCQPiLAIc+3NyYzY/AaIvoU4YV8cr7c6I9SKfKGXQZ1B+L0kojjGzrkRXPZH99XDgMyfYmymVcPTSr0wQDzfihdchUpwp8SrjRbp+ovvhnOtff8050bVKCzO790oC1drwdtrmGvxKUBU8OFU32CHAFYbGtvkwY1F73/T2pWZfaImL0NpDp45qMftajEqvms2kl07/kFmCzSTRzUSSeXLgO/sqll5iRJCjNFjg1MLrLufazLD1zgOPW0eEBJV00DXoAo4wmWGRvJTt55WJz5+91z4i+mWzzc1dxk+EFv6wJsJBc12y6Q3nPQ/FxwyWxlDUZKUH8fmXBcZ8ydepjMeft5tHcsmKvwYZ3Y=
+before_install:
+- openssl aes-256-cbc -K $encrypted_1dabc523cf99_key -iv $encrypted_1dabc523cf99_iv
+  -in .travis/id_rsa.enc -out ~\/.ssh/id_rsa -d
