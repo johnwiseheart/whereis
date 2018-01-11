@@ -1,5 +1,7 @@
-REPO_NAME=`git config --get remote.origin.url | cut -d':' -f2`
-GITHUB_URL="https://${GH_TOKEN}@github.com/${REPO_NAME}"
+REMOTE_URL=$(git config --get remote.origin.url)
+USER_NAME=$(basename $(dirname $REMOTE_URL))
+REPO_NAME=$(basename $REMOTE_URL)
+GITHUB_URL="https://${GH_TOKEN}@github.com/${USER_NAME}/${REPO_NAME}"
 
 git push -d $GITHUB_URL gh-pages
 
