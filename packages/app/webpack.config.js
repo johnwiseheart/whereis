@@ -43,7 +43,7 @@ module.exports = {
             template: require("html-webpack-template"),
 
             appMountId: "app",
-
+            title: "Where Is John",
         })
     ]
 };
