@@ -19,7 +19,8 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.4.1",
@@ -35,6 +36,6 @@
   },
   "scripts": {
     "start": "../../node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base ./dist --hot --inline --colors --port 3000 --open",
-    "build": "NODE_ENV=production webpack"
+    "build": "webpack --config webpack.prod.js"
   }
 }

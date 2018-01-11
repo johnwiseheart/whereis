@@ -19,10 +19,9 @@ echo "Pushing new content to $ORIGIN_URL"
 git config user.name "$GH_USER_NAME" || exit 1
 git config user.email "$GH_USER_EMAIL" || exit 1
 
-sed -i "" '/dist/d' ./.gitignore
-git add -A . || exit 1
+git add $DIST_DIRECTORY -f
 git commit --allow-empty -m "Regenerated static content for $CURRENT_COMMIT" || exit 1
-git push origin `git subtree split --prefix packages/app/dist master`:gh-pages --force
+git subtree push --prefix $DIST_DIRECTORY origin gh-pages
 
 git reset HEAD~
 git checkout .gitignore

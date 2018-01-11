@@ -40,9 +40,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             // Required
             inject: false,
-            template: require('html-webpack-template'),
+            template: require("html-webpack-template"),
 
-            appMountId: 'app',
+            appMountId: "app",
 
         })
     ]
