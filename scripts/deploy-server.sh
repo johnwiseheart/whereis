@@ -1,0 +1,1 @@
+ls packages/server/dist

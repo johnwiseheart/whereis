@@ -1,12 +1,23 @@
 language: node_js
 node_js:
 - node
-before_script:
-- chmod +x ./scripts/deploy-app.sh
-script:
-- yarn build-app
-after_success:
-- "./scripts/deploy-app.sh"
+jobs:
+  include:
+    - stage: frontend
+      before_script:
+        - chmod +x ./scripts/deploy-app.sh
+      script:
+        - yarn build-app
+      after_success:
+        - "./scripts/deploy-app.sh"
+    - stage: backend
+      before_script:
+        - chmod +x ./scripts/deploy-server.sh
+      script:
+        - yarn build-server
+      after_success:
+        - "./scripts/deploy-server.sh"
+
 env:
   global:
     - FRONTEND_URL: whereis.jcaw.me
