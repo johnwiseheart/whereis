@@ -2,7 +2,7 @@ yarn build-app
 
 GITHUB_URL="https://${GH_TOKEN}@github.com/johnwiseheart/whereis.git"
 
-git push $GITHUB_URL -d origin gh-pages
+git push -d $GITHUB_URL gh-pages
 
 echo "whereis.jcaw.me" > packages/app/dist/CNAME
 
