@@ -86,7 +86,10 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
 
 
     return (
-      <div ref={this.refHandler.container}>
+      <div
+        className="whereis-wrapper"
+        ref={this.refHandler.container}
+      >
         {maybeRender}
       </div>
     );

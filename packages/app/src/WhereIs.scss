@@ -10,9 +10,15 @@ $edge-padding: 25px 90px;
 
 html,
 body {
+  height: 100%;
   font-family: "Open Sans", sans-serif;
   color: #3c3c3c;
   background-color: #e3e7e8;
+}
+
+div#app,
+.whereis-wrapper {
+  height: 100%;
 }
 
 .whereis {
