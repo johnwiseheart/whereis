@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "dokku": {
+      "predeploy": "tsc -p ./packages/server/tsconfig.json"
+    }
+  }
+}
