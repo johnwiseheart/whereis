@@ -1,6 +1,24 @@
 image: node:9
 
+stages:
+  - deploy
+
+variables:
+  APP_NAME: whereis
+
+deploy:
+  image: ilyasemenov/gitlab-ci-git-push
+  stage: deploy
+  environment:
+    name: production
+    url: https://$APP_NAME.horace.jcaw.me/
+  only:
+    - master
+  script:
+    - git-push ssh://dokku@horace.jcaw.me:22/$APP_NAME
+
 pages:
+  stage: deploy
   script:
     - yarn
     - yarn build-app
