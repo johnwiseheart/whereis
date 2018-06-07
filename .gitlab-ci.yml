@@ -6,3 +6,8 @@ pages:
     - yarn build-app
     - mkdir public
     - cp packages/app/dist/* public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
