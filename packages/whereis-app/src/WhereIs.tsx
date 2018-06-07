@@ -1,26 +1,24 @@
-import * as classNames from "classnames";
+import { flex, flex1, horizontal, vertical } from "csstips/lib";
 import * as moment from "moment-timezone";
 import * as React from "react";
-import { connect } from "react-redux";
-import "whatwg-fetch";
-import "./WhereIs.scss";
-import { getBestDevice, MAPBOX_TOKEN } from "./util";
+import { StaticMap } from "react-map-gl";
+import { style } from "typestyle";
 import {
-  ISimpleDevice,
   ICoordinates,
-  IWeatherState,
-  IWeatherResponse,
-  UnitType,
+  ILocationResponse,
+  ISimpleDevice,
   ITimezoneResponse,
-  ILocationResponse
+  IWeatherResponse,
+  IWeatherState,
+  UnitType,
 } from "whereis-common";
 import {
   fetchDevices,
-  fetchWeather,
+  fetchLocation,
   fetchTimezone,
-  fetchLocation
+  fetchWeather,
 } from "./api";
-import { StaticMap } from "react-map-gl";
+import { getBestDevice, MAPBOX_TOKEN } from "./util";
 
 interface IWhereIsState {
   location: string;
@@ -31,20 +29,20 @@ interface IWhereIsState {
 }
 
 export default class WhereIs extends React.Component<{}, IWhereIsState> {
+  public state: IWhereIsState = {
+    coordinates: undefined,
+    location: "",
+    seconds: 0,
+    timezone: "",
+    weather: undefined,
+  };
+
   private container: HTMLDivElement;
   private mapContainer: HTMLDivElement;
   private refHandler = {
     container: (container: HTMLDivElement) => {
       this.container = container;
-    }
-  };
-
-  public state: IWhereIsState = {
-    location: "",
-    coordinates: undefined,
-    weather: undefined,
-    timezone: "",
-    seconds: 0
+    },
   };
 
   public componentWillMount() {
@@ -63,7 +61,7 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
       fetchWeather(device.coordinates, UnitType.SI).then(
         (resp: IWeatherResponse) => {
           this.setState({ weather: { ...resp, lastUpdated: new Date() } });
-        }
+        },
       );
     });
   }
@@ -72,10 +70,10 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
     const { location, seconds, timezone, weather } = this.state;
 
     const maybeRender = this.hasFinishedLoading() ? (
-      <div className="whereis">
-        <div className="location">{location}</div>
+      <div className={Styles.container}>
+        <div className={Styles.location}>{location}</div>
         {this.maybeRenderMap()}
-        <div className="footer">
+        <div className={Styles.footer}>
           {this.maybeRenderWeather()}
           {this.maybeRenderTimezone()}
         </div>
@@ -95,11 +93,11 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
     const { coordinates, location, seconds, timezone, weather } = this.state;
     return (
       coordinates !== undefined &&
-      location != undefined &&
+      location !== undefined &&
       timezone !== undefined &&
       weather !== undefined
     );
-  };
+  }
 
   private maybeRenderMap = () => {
     const { coordinates, location, seconds, timezone, weather } = this.state;
@@ -108,7 +106,7 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
     }
 
     return (
-      <div className="map">
+      <div className={Styles.map}>
         <StaticMap
           width={this.container.offsetWidth - 200}
           height={this.container.offsetHeight}
@@ -120,7 +118,7 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
         />
       </div>
     );
-  };
+  }
 
   private maybeRenderWeather = () => {
     const { weather } = this.state;
@@ -129,12 +127,14 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
     }
 
     return (
-      <div className="weather">
-        <div className="now">{Math.round(weather.currently)}&deg;</div>
+      <div className={Styles.weather}>
+        <div className={Styles.weatherNow}>
+          {Math.round(weather.currently)}&deg;
+        </div>
         <div>Currently</div>
       </div>
     );
-  };
+  }
 
   private maybeRenderTimezone = () => {
     const { timezone } = this.state;
@@ -144,10 +144,72 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
 
     const time = moment().tz(timezone);
     return (
-      <div className="datetime">
-        <div className="time">{time.format("h:mm A")}</div>
-        <div className="date">{time.format("dddd D MMMM YYYY")}</div>
+      <div className={Styles.datetime}>
+        <div className={Styles.time}>{time.format("h:mm A")}</div>
+        <div className={Styles.date}>{time.format("dddd D MMMM YYYY")}</div>
       </div>
     );
-  };
+  }
+}
+
+namespace Styles {
+  const textLarge = 70;
+  const textMedium = 30;
+  const textSmall = 12;
+
+  const edgePadding = "25px 90px";
+
+  export const container = style(
+    {
+      height: "100vh",
+    },
+    vertical,
+  );
+
+  export const location = style({
+    fontSize: textLarge,
+    padding: edgePadding,
+    textAlign: "right",
+  });
+
+  export const map = style(
+    {
+      border: "10px solid #dedede",
+      margin: "0 auto",
+      overflow: "hidden",
+    },
+    flex1,
+  );
+
+  export const footer = style(horizontal);
+
+  export const weather = style({
+    fontSize: textSmall,
+    padding: edgePadding,
+  });
+
+  export const weatherNow = style({
+    fontSize: textMedium,
+    margin: "10px 0",
+  });
+
+  export const weatherCurrently = style({
+    fontSize: textSmall,
+  });
+
+  export const datetime = style({
+    marginLeft: "auto",
+    padding: edgePadding,
+    textAlign: "right",
+  });
+
+  export const time = style({
+    fontSize: textMedium,
+    margin: "10px 0",
+  });
+
+  export const date = style({
+    fontSize: textSmall,
+    margin: "10px 0",
+  });
 }

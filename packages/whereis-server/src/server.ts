@@ -1,14 +1,14 @@
-import * as Koa from "koa";
-import * as Router from "koa-router";
-import * as koaBody from "koa-body";
-import fetch from "node-fetch";
 import * as cors from "@koa/cors";
+import * as Koa from "koa";
+import * as koaBody from "koa-body";
+import * as Router from "koa-router";
+import fetch from "node-fetch";
 import {
+  ICoordinates,
+  IDarkSkyDay,
   IDevice,
   ISimpleDevice,
-  ICoordinates,
   UnitType,
-  IDarkSkyDay
 } from "whereis-common";
 
 const app = new Koa();
@@ -29,12 +29,13 @@ const DEVICE_API_URL =
 
 const TIMEZONE_API_URL = ({ latitude, longitude }: ICoordinates) => {
   const timestamp = Math.floor(Date.now() / 1000);
+  // tslint:disable-next-line:max-line-length
   return `https://maps.googleapis.com/maps/api/timezone/json?location=${latitude},${longitude}&timestamp=${timestamp}&key=${TIMEZONE_KEY}`;
 };
 
 const DARKSKY_API_URL = (
   { latitude, longitude }: ICoordinates,
-  units: UnitType
+  units: UnitType,
 ) => {
   return `https://api.darksky.net/forecast/${DARKSKY_KEY}/${latitude},${longitude}?units=${units}`;
 };
@@ -44,22 +45,22 @@ const GEOCODE_API_URL = ({ latitude, longitude }: ICoordinates) => {
 };
 
 const getSimpleDevice = (device: IDevice) => ({
-  id: device.id.substring(0, 8),
-  name: device.modelDisplayName,
   coordinates: {
     latitude: Math.round(device.location.latitude * 10) / 10,
-    longitude: Math.round(device.location.longitude * 10) / 10
-  }
+    longitude: Math.round(device.location.longitude * 10) / 10,
+  },
+  id: device.id.substring(0, 8),
+  name: device.modelDisplayName,
 });
 
-router.get("/devices", async ctx => {
+router.get("/devices", async (ctx) => {
   const response = await fetch(DEVICE_API_URL, {
-    method: "POST",
     headers: {
       Authorization:
         "Basic " +
-        new Buffer(APPLE_USERNAME + ":" + APPLE_PASSWORD).toString("base64")
-    }
+        new Buffer(APPLE_USERNAME + ":" + APPLE_PASSWORD).toString("base64"),
+    },
+    method: "POST",
   });
   const data = await response.json();
   ctx.body = data.content
@@ -67,7 +68,7 @@ router.get("/devices", async ctx => {
     .map(getSimpleDevice);
 });
 
-router.get("/location", async ctx => {
+router.get("/location", async (ctx) => {
   const { latitude, longitude } = ctx.request.query;
   const response = await fetch(GEOCODE_API_URL({ latitude, longitude }));
   const data = await response.json();
@@ -77,14 +78,14 @@ router.get("/location", async ctx => {
   ctx.body = { location };
 });
 
-router.get("/timezone", async ctx => {
+router.get("/timezone", async (ctx) => {
   const { latitude, longitude } = ctx.request.query;
   const response = await fetch(TIMEZONE_API_URL({ latitude, longitude }));
   const data = await response.json();
   ctx.body = { timeZoneId: data.timeZoneId };
 });
 
-router.get("/weather", async ctx => {
+router.get("/weather", async (ctx) => {
   const { latitude, longitude, units } = ctx.request.query;
   const response = await fetch(DARKSKY_API_URL({ latitude, longitude }, units));
   const data = await response.json();
@@ -93,14 +94,15 @@ router.get("/weather", async ctx => {
     daily: data.daily.data
       .map((day: IDarkSkyDay) => ({
         high: day.temperatureHigh,
+        icon: day.icon,
         low: day.temperatureLow,
-        icon: day.icon
       }))
-      .slice(0, 3)
+      .slice(0, 3),
   };
 });
 
 app.use(router.routes());
 
 app.listen(5000);
+// tslint:disable-next-line:no-console
 console.log("Server running on port 5000");
