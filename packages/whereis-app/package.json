@@ -10,6 +10,8 @@
     "@types/react-dom": "^16.0.3",
     "@types/react-redux": "^5.0.14",
     "classnames": "^2.2.5",
+    "csstips": "^0.3.0",
+    "csx": "^9.0.0",
     "html-webpack-plugin": "^2.30.1",
     "moment-timezone": "^0.5.14",
     "normalize.css": "^7.0.0",
@@ -19,6 +21,7 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
+    "typestyle": "^2.0.1",
     "webpack": "^3.10.0",
     "webpack-merge": "^4.1.1",
     "whereis-common": "1.0.0"

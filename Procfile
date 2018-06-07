@@ -1,1 +1,1 @@
-web: node ./packages/whereis-server/dist/whereis-server/server.js
+web: node ./packages/whereis-server/dist/whereis-server/src/server.js
