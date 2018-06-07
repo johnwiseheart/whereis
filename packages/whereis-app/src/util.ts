@@ -1,4 +1,4 @@
-import { ICoordinates, ISimpleDevice, UnitType } from "../../common/types";
+import { ICoordinates, ISimpleDevice, UnitType } from "whereis-common";
 
 export const getBestDevice = (devices: ISimpleDevice[]) => {
   const order = ["iPhone", "MacBook Pro", "iPad"];

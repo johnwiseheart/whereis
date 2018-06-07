@@ -1,17 +1,17 @@
 {
   "name": "whereis",
-  "version": "2",
+  "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/whereis-app",
+    "packages/whereis-common",
+    "packages/whereis-server"
   ],
-  "devDependencies": {
-    "lerna": "^2.5.1"
-  },
   "scripts": {
-    "build-app": "cd packages/app; yarn build",
-    "build-server": "cd packages/server; yarn build"
+    "build-app": "yarn build-common; cd packages/whereis-app; yarn build",
+    "build-common": "cd packages/whereis-common; yarn build",
+    "build-server": "yarn build-common; cd packages/whereis-server; yarn build"
   }
 }

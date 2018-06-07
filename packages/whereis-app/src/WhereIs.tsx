@@ -13,7 +13,7 @@ import {
   UnitType,
   ITimezoneResponse,
   ILocationResponse
-} from "../../common/types";
+} from "whereis-common";
 import {
   fetchDevices,
   fetchWeather,
@@ -71,25 +71,21 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
   public render() {
     const { location, seconds, timezone, weather } = this.state;
 
-    const maybeRender = this.hasFinishedLoading()
-      ? (
-        <div className="whereis">
-          <div className="location">{location}</div>
-          {this.maybeRenderMap()}
-          <div className="footer">
-            {this.maybeRenderWeather()}
-            {this.maybeRenderTimezone()}
-          </div>
+    const maybeRender = this.hasFinishedLoading() ? (
+      <div className="whereis">
+        <div className="location">{location}</div>
+        {this.maybeRenderMap()}
+        <div className="footer">
+          {this.maybeRenderWeather()}
+          {this.maybeRenderTimezone()}
         </div>
-      ) : <div className="loader" />;
-
-
+      </div>
+    ) : (
+      <div className="loader" />
+    );
 
     return (
-      <div
-        className="whereis-wrapper"
-        ref={this.refHandler.container}
-      >
+      <div className="whereis-wrapper" ref={this.refHandler.container}>
         {maybeRender}
       </div>
     );
@@ -103,7 +99,7 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
       timezone !== undefined &&
       weather !== undefined
     );
-  }
+  };
 
   private maybeRenderMap = () => {
     const { coordinates, location, seconds, timezone, weather } = this.state;
@@ -123,8 +119,8 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
           mapboxApiAccessToken={MAPBOX_TOKEN}
         />
       </div>
-    )
-  }
+    );
+  };
 
   private maybeRenderWeather = () => {
     const { weather } = this.state;
@@ -137,8 +133,8 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
         <div className="now">{Math.round(weather.currently)}&deg;</div>
         <div>Currently</div>
       </div>
-    )
-  }
+    );
+  };
 
   private maybeRenderTimezone = () => {
     const { timezone } = this.state;
@@ -152,6 +148,6 @@ export default class WhereIs extends React.Component<{}, IWhereIsState> {
         <div className="time">{time.format("h:mm A")}</div>
         <div className="date">{time.format("dddd D MMMM YYYY")}</div>
       </div>
-    )
-  }
+    );
+  };
 }

@@ -20,7 +20,8 @@
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
     "webpack": "^3.10.0",
-    "webpack-merge": "^4.1.1"
+    "webpack-merge": "^4.1.1",
+    "whereis-common": "1.0.0"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.4.1",
