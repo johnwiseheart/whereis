@@ -23,7 +23,7 @@ pages:
     - yarn
     - yarn build-app
     - mkdir -p public
-    - cp packages/app/dist/* public
+    - cp packages/whereis-app/dist/* public
   artifacts:
     paths:
     - public
