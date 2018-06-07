@@ -1,0 +1,3 @@
+script:
+  - yarn
+  - yarn build-app
