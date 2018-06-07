@@ -6,9 +6,10 @@ import {
   UnitType
 } from "../../common/types";
 
-export const BACKEND_URL = process.env.NODE_ENV === "production"
-  ? "https://whereis.dynamic.jcaw.me"
-  : "http://127.0.0.1:5000";
+export const BACKEND_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://whereis.horace.jcaw.me"
+    : "http://127.0.0.1:5000";
 
 export const fetchDevices = () => {
   return fetch(BACKEND_URL + "/devices").then(resp => resp.json());
@@ -31,6 +32,7 @@ export const fetchWeather = (
   units: UnitType
 ) => {
   return fetch(
-    BACKEND_URL + `/weather?latitude=${latitude}&longitude=${longitude}&units=${units}`
+    BACKEND_URL +
+      `/weather?latitude=${latitude}&longitude=${longitude}&units=${units}`
   ).then(resp => resp.json());
 };
