@@ -1,4 +1,5 @@
 import * as cors from "@koa/cors";
+import { Agent } from "https";
 import * as Koa from "koa";
 import * as koaBody from "koa-body";
 import * as Router from "koa-router";
@@ -21,6 +22,10 @@ const APPLE_PASSWORD = process.env.WHEREIS_PASSWORD;
 const TIMEZONE_KEY = process.env.WHEREIS_TIMEZONE_KEY;
 const DARKSKY_KEY = process.env.WHEREIS_DARKSKY_KEY;
 const GEOCODE_KEY = process.env.WHEREIS_GEOCODE_KEY;
+
+const agent = new Agent({
+  rejectUnauthorized: false,
+});
 
 const DEVICE_API_URL =
   "https://fmipmobile.icloud.com/fmipservice/device/" +
@@ -55,6 +60,7 @@ const getSimpleDevice = (device: IDevice) => ({
 
 router.get("/devices", async (ctx) => {
   const response = await fetch(DEVICE_API_URL, {
+    agent,
     headers: {
       Authorization:
         "Basic " +
@@ -70,7 +76,9 @@ router.get("/devices", async (ctx) => {
 
 router.get("/location", async (ctx) => {
   const { latitude, longitude } = ctx.request.query;
-  const response = await fetch(GEOCODE_API_URL({ latitude, longitude }));
+  const response = await fetch(GEOCODE_API_URL({ latitude, longitude }), {
+    agent,
+  });
   const data = await response.json();
   const location = data.results[data.results.length - 3].formatted_address
     .replace("Metropolitan Area", "")
@@ -80,14 +88,19 @@ router.get("/location", async (ctx) => {
 
 router.get("/timezone", async (ctx) => {
   const { latitude, longitude } = ctx.request.query;
-  const response = await fetch(TIMEZONE_API_URL({ latitude, longitude }));
+  const response = await fetch(TIMEZONE_API_URL({ latitude, longitude }), {
+    agent,
+  });
   const data = await response.json();
   ctx.body = { timeZoneId: data.timeZoneId };
 });
 
 router.get("/weather", async (ctx) => {
   const { latitude, longitude, units } = ctx.request.query;
-  const response = await fetch(DARKSKY_API_URL({ latitude, longitude }, units));
+  const response = await fetch(
+    DARKSKY_API_URL({ latitude, longitude }, units),
+    { agent },
+  );
   const data = await response.json();
   ctx.body = {
     currently: data.currently.temperature,

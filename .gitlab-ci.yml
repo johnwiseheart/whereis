@@ -21,9 +21,10 @@ pages:
   stage: deploy
   script:
     - yarn
+    - yarn build-lib
     - yarn build-app
     - mkdir -p public
-    - cp packages/whereis-app/dist/* public
+    - cp app/dist/* public
   artifacts:
     paths:
     - public
