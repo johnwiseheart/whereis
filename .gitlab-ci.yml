@@ -11,11 +11,11 @@ deploy:
   stage: deploy
   environment:
     name: production
-    url: https://$APP_NAME.horace.jcaw.me/
+    url: https://$APP_NAME.theodore.jcaw.me/
   only:
     - master
   script:
-    - git-push dokku@horace.jcaw.me:$APP_NAME
+    - git-push dokku@theodore.jcaw.me:$APP_NAME
 
 pages:
   stage: deploy
@@ -27,6 +27,6 @@ pages:
     - cp packages/whereis-app/dist/* public
   artifacts:
     paths:
-    - public
+      - public
   only:
-  - master
+    - master
