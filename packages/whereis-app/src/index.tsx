@@ -16,11 +16,15 @@ cssRule("html, body", {
   backgroundColor: "#e3e7e8",
   color: "#3c3c3c",
   fontFamily: '"Open Sans", sans-serif',
-  height: "100%",
+  height: "100%"
+});
+
+cssRule("#app", {
+  display: "flex"
 });
 
 cssRule(".mapboxgl-missing-css", {
-  display: "none",
+  display: "none"
 });
 
 ReactDOM.render(<WhereIs />, document.getElementById("app"));

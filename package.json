@@ -7,11 +7,10 @@
   "workspaces": [
     "packages/whereis-app",
     "packages/whereis-common",
-    "packages/whereis-server"
+    "packages/whereis-lambda"
   ],
   "scripts": {
     "build-app": "yarn build-common; cd packages/whereis-app; yarn build",
-    "build-common": "cd packages/whereis-common; yarn build",
-    "build-server": "yarn build-common; cd packages/whereis-server; yarn build"
+    "build-common": "cd packages/whereis-common; yarn build"
   }
 }
