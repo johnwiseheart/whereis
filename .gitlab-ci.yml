@@ -10,10 +10,9 @@ pages:
   stage: deploy
   script:
     - yarn
-    - yarn build-common
     - yarn build-app
     - mkdir -p public
-    - cp packages/whereis-app/build/* public
+    - cp -r packages/whereis-app/build/* public
   artifacts:
     paths:
       - public
