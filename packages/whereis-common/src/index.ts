@@ -25,6 +25,7 @@ export interface IWeatherDay {
 
 export interface IWeatherResponse {
   currently: number;
+  summary: string;
   daily: IWeatherDay[];
 }
 

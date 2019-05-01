@@ -43,6 +43,7 @@ const getWeather = async (coordinates: ICoordinates) => {
     const { currently, daily } = data;
     return {
       currently: currently.temperature,
+      summary: currently.summary,
       daily: daily.data
         .map(({ temperatureLow, icon, temperatureHigh }: IDarkSkyDay) => ({
           high: temperatureHigh,

@@ -4,6 +4,7 @@
   "description": "Whereis-server implemented as a lambda",
   "main": "handler.js",
   "scripts": {
+    "deploy": "serverless deploy function -f getLocationInfo",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

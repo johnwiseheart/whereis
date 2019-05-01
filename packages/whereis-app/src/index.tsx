@@ -1,30 +1,12 @@
-import { normalize, setupPage } from "csstips";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { cssRaw, cssRule } from "typestyle";
-import "whatwg-fetch";
-import { setupLoader } from "./loader";
-import WhereIs from "./WhereIs";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
 
-normalize();
-setupPage("#app");
-setupLoader();
+ReactDOM.render(<App />, document.getElementById('root'));
 
-cssRaw(`@import url("https://fonts.googleapis.com/css?family=Open+Sans");`);
-
-cssRule("html, body", {
-  backgroundColor: "#e3e7e8",
-  color: "#3c3c3c",
-  fontFamily: '"Open Sans", sans-serif',
-  height: "100%"
-});
-
-cssRule("#app", {
-  display: "flex"
-});
-
-cssRule(".mapboxgl-missing-css", {
-  display: "none"
-});
-
-ReactDOM.render(<WhereIs />, document.getElementById("app"));
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
