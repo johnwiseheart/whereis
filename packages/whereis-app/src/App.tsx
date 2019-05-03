@@ -2,6 +2,9 @@ import React from "react";
 import styles from "./App.module.scss";
 import { StaticMap } from "react-map-gl";
 import { ICombinedDevice } from "whereis-common";
+import ReactGA from "react-ga";
+
+ReactGA.initialize("UA-139517135-2");
 
 export const MAPBOX_TOKEN =
   "pk.eyJ1IjoieW91cmFybSIsImEiOiJjamFoNWM3bXQxbHBuMzJvaTMydTJ3ODI3In0.XCIuLDNhGrDpAlKIQRMYjg";
@@ -34,6 +37,7 @@ class App extends React.PureComponent<{}, IAppState> {
   };
 
   componentWillMount() {
+    ReactGA.pageview(window.location.pathname);
     fetch(BACKEND_URL)
       .then(resp => resp.json())
       .then(devices => getBestDevice(devices))
